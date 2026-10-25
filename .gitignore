@@ -9,8 +9,16 @@ dist/
 
 # Everything under out/ is produced by the scripts. Trajectories, previews,
 # videos and logs regenerate in seconds and pushed the repo past 250 MB.
+#
+# Exception: the two trajectories that are meant to be run on the real robot.
+# They are committed so a clone has a ready-to-execute file without needing to
+# re-plan first. Everything else stays out.
 out/*
 !out/.gitkeep
+!out/arch_gen.json
+!out/arch_gen.meta.json
+!out/demo_gen.json
+!out/demo_gen.meta.json
 
 # Editors / OS
 .vscode/

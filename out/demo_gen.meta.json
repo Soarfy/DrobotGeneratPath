@@ -1,0 +1,66 @@
+{
+  "waypoint_count": 55,
+  "input_pose_count": 55,
+  "duration_s": 19.665235754482172,
+  "path_length_m": 0.09083060033257898,
+  "max_position_error_mm": 0.0,
+  "max_orientation_error_deg": 0.0,
+  "ik_failures": [],
+  "model_to_base": [
+    [
+      6.123233995736766e-17,
+      -6.123233995736766e-17,
+      1.0,
+      -0.034
+    ],
+    [
+      1.0,
+      3.749399456654644e-33,
+      -6.123233995736766e-17,
+      -0.046
+    ],
+    [
+      -0.0,
+      1.0,
+      6.123233995736766e-17,
+      0.463
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "pattern": "raster",
+  "surface_path_points": 20,
+  "surface_path_length_m": 0.04193762421126765,
+  "validation": {
+    "waypoint_count": 55,
+    "duration_s": 19.665235754482172,
+    "limit_violations": [],
+    "velocity_violations": [],
+    "acceleration_violations": [],
+    "max_joint_step_deg": 1.3311626370376564,
+    "max_velocity_fraction": 0.018455129685151204,
+    "max_acceleration_fraction": 0.02584754900670306,
+    "min_manipulability": 0.009549495087858746,
+    "passed": true
+  },
+  "region_vertex_count": 20,
+  "task": "occlusal_patch_tooth",
+  "config": "cr5a",
+  "clearance": {
+    "self_min_distance_mm": 76.37530505716006,
+    "self_min_index": 0,
+    "self_min_link": "Link4",
+    "self_violations": [],
+    "self_violation_count": 0,
+    "workpiece_min_distance_mm": 0.04202243373133623,
+    "workpiece_min_index": 25,
+    "workpiece_violations": [],
+    "workpiece_violation_count": 0,
+    "self_margin_mm": 10.0,
+    "passed": true
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "waypoint_count": 111,
+  "input_pose_count": 111,
+  "duration_s": 39.92259998177647,
+  "path_length_m": 0.18170815524580725,
+  "max_position_error_mm": 0.0,
+  "max_orientation_error_deg": 0.0,
+  "ik_failures": [],
+  "model_to_base": [
+    [
+      6.123233995736766e-17,
+      -6.123233995736766e-17,
+      1.0,
+      -0.034
+    ],
+    [
+      1.0,
+      3.749399456654644e-33,
+      -6.123233995736766e-17,
+      -0.046
+    ],
+    [
+      -0.0,
+      1.0,
+      6.123233995736766e-17,
+      0.463
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "pattern": "arch",
+  "surface_path_points": 33,
+  "surface_path_length_m": 0.1415510683607666,
+  "validation": {
+    "waypoint_count": 111,
+    "duration_s": 39.92259998177647,
+    "limit_violations": [],
+    "velocity_violations": [],
+    "acceleration_violations": [],
+    "max_joint_step_deg": 1.3594332666744358,
+    "max_velocity_fraction": 0.018835424477871662,
+    "max_acceleration_fraction": 0.03791298410456025,
+    "min_manipulability": 0.009099326855265199,
+    "passed": true
+  },
+  "task": "arch_walk",
+  "config": "cr5a",
+  "clearance": {
+    "self_min_distance_mm": 77.39736442482523,
+    "self_min_index": 64,
+    "self_min_link": "Link4",
+    "self_violations": [],
+    "self_violation_count": 0,
+    "workpiece_min_distance_mm": 0.0330346827737926,
+    "workpiece_min_index": 108,
+    "workpiece_violations": [],
+    "workpiece_violation_count": 0,
+    "self_margin_mm": 10.0,
+    "passed": true
+  }
+}
