@@ -1,0 +1,55 @@
+# Walk the tool along the dental arch, from one molar around the front teeth
+# to the other molar. Use this when you want one continuous pass rather than a
+# patch raster.
+#
+# Coordinates are in the MODEL frame (metres), i.e. the frame of the PLY mesh.
+
+name: arch_walk
+pattern: arch
+
+arch:
+  # Which axis of the model points "up" out of the occlusal surface.
+  up_direction: [0.0, 1.0, 0.0]
+  # In-plane direction across the arch (left-right). Omit for auto.
+  across_direction: null
+  # How many angular slices the crest search uses. 180 is ~2 deg per slice.
+  angular_bins: 180
+  # Only vertices this close to the occlusal height are considered, which
+  # excludes the base of the model. 12 mm works for a trimmed dental arch.
+  height_band_m: 0.012
+  # Minimum outward-facing dot product, to skip side walls.
+  min_face_dot: 0.4
+  # Optional span along the across axis, in metres. Omit for the whole arch.
+  u_range: null
+  # Shift the path sideways from the crest, in metres.
+  lateral_offset_m: 0.0
+  # Drop this fraction of the curve at both ends.
+  trim_fraction: 0.0
+
+# Distance between consecutive contact points along the arch.
+spacing_m: 0.005
+
+# Tool tip stays this far off the surface along the surface normal.
+standoff_m: 0.002
+
+speed_m_s: 0.01
+acceleration_m_s2: 0.05
+approach_clearance_m: 0.02
+
+# The brush must hang vertically, so the tool orientation is the fixed
+# R_down frame rather than a per-point surface normal. Clamping tilt toward a
+# reference normal would fight that, so it is disabled here.
+# Following every normal around a curved arch rotates the wrist ~180 deg. Cap
+# the deviation from the occlusal normal so the arm stays on one branch.
+max_tilt_deg: 35.0
+tilt_reference: [0.0, 0.0, 1.0]
+
+# Tool X axis. A fixed reference keeps the wrist roll stable along the arch.
+x_reference: [1.0, 0.0, 0.0]
+
+max_translation_step_m: 0.002
+max_rotation_step_deg: 3.0
+
+# Hold the brush at the orientation the cell actually uses: the r
+# rod points away from the robot and about 32 deg below horizontal.
+fixed_orientation_deg: [180.0, 0.0, 150.0]

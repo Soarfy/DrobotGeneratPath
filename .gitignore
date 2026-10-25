@@ -1,0 +1,41 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.pytest_cache
+
+# Everything under out/ is produced by the scripts. Trajectories, previews,
+# videos and logs regenerate in seconds and pushed the repo past 250 MB.
+out/*
+!out/.gitkeep
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Isaac Sim local artifacts
+*.usd
+*.usda
+*.usdc
+*.dmp
+
+# Local temp
+*.tmp
+*.log
+
+# Derived meshes: rebuilt by scripts/make_assets.py and scripts/align_brush.py
+# from the tracked source PLY, so they stay out of version control.
+/assets/tool/brushleap/brushleap.stl
+/assets/tool/brushleap/brushleap_link6.stl
+/assets/tool/brushleap/brushleap_link6_preview.ply
+/assets/tool/brushleap/brushleap_preview.ply
+/assets/tool/brushleap/faces.npy
+/assets/robot/cr5a_with_tool/meshes/brushleap.stl
+/assets/target/*_preview.ply
+/assets/target/*.stl

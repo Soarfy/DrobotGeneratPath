@@ -1,0 +1,86 @@
+# CR5A + real toothbrush (brushleap.ply) configuration.
+# Angles in degrees, lengths in metres unless a key says otherwise.
+#
+# Values below come from the existing C++ cell controller:
+#   ArmControllerCamera/BrushTooth.cpp
+#     applyBrushTcpFromJson()          -> the real TCP offset
+#     moveToSafeViaWaypointsForBrush() -> the safe posture
+#   hand_eye_calibration/UsmileUi/default/<region>/ee_poses.txt
+#     taught brush-tip trajectories on the tooth model
+
+robot:
+  name: cr5a
+  urdf: assets/robot/cr5a/urdf/cr5_robot.urdf
+  tip_link: Link6
+  base_frame: base_link
+  joint_names: [joint1, joint2, joint3, joint4, joint5, joint6]
+  # The shipped URDF has effort="0" velocity="0"; these come from
+  # cr5_moveit/config/joint_limits.yaml in the official Dobot ROS2 package.
+  velocity_limits_rad_s: [3.14, 3.14, 3.89, 3.89, 3.89, 3.89]
+  acceleration_limits_rad_s2: [6.28, 6.28, 7.78, 7.78, 7.78, 7.78]
+  # The URDF declares +/-6.28 rad (+/-360 deg) for joints 1,2,4,5,6, which is a
+  # placeholder. The physical CR5A cannot wind a wrist past a full turn, and
+  # letting the solver use 250 deg produces commands the controller rejects.
+  # Clamp to +/-180 deg, the range the real arm actually travels.
+  position_limits_rad: [
+    [-3.1416, 3.1416],
+    [-3.1416, 3.1416],
+    [-2.792, 2.792],
+    [-3.1416, 3.1416],
+    [-3.1416, 3.1416],
+    [-3.1416, 3.1416],
+  ]
+  # IK of the cell's safe TCP pose (264.8929, -285.1852, 491.0669 mm /
+  # -179.7725, -1.3507, -145.9055 deg) solved with the 120/150 mm tool.
+  # CAVEAT: joint5 sits at 88.7 deg, i.e. on the wrist singularity. That is a
+  # property of this TCP orientation with the brush mounted along Link6 +Y, not
+  # a solver artefact: nudging the target by +/-30 mm only moves j5 between
+  # 88.6 and 91.3. Watch for singularity warnings on the real controller when
+  # starting from this pose.
+  home_q_rad: [-0.5655, -0.9636, 0.9058, -1.5184, 1.5481, 0.4102]
+  # TCP pose this home was solved from, for verification and documentation.
+  home_tcp_pose_mm_deg: [264.8929, -285.1852, 491.0669, -179.7725, -1.3507, -145.9055]
+
+tool:
+  name: brushleap
+  # Brush placed exactly as the cell specifies:
+  #   long axis parallel to Link6 +Y
+  #   tip only offset in Y and Z, no X
+  #     y = +120 mm  (12 cm along the flange +Y axis)
+  #     z = +150 mm  (15 cm along the flange +Z axis)
+  # At the safe posture Link6 +Z points straight down and +Y points forward,
+  # so this reads as "12 cm forward, 15 cm below the flange".
+  tcp_offset_m: [0.0, 0.120, 0.150]
+  tcp_rpy_deg: [0.0, 0.0, 0.0]
+  length_m: 0.084
+  radius_m: 0.011
+  # Brush alignment is produced by scripts/align_brush.py, never by editing the
+  # mesh by hand:
+  #   --working-end wide   the bristle head (r~10.8mm) faces the tooth
+  #   --roll-deg 180       bristle face turned around the brush's own axis
+  # The other end (r~6.7mm) is the grip and points back toward the flange.
+  working_end: wide
+  roll_deg: 180.0
+  mesh: assets/tool/brushleap/brushleap.ply
+  mesh_units: mm
+
+scene:
+  model_mesh: assets/target/lower_jaw.ply
+  mesh_units: mm
+  # Model frame: X = arch width, Y = occlusal up, Z = front/back.
+  #
+  # Generated, not taught. The model is placed where the new 120/150 mm brush
+  # can reach every point of the arch: a grid search around the safe-pose tip
+  # position kept only centres where all sampled arch points were IK-solvable.
+  # Orientation maps model +Y (occlusal) to base +Z so the brush comes from
+  # above.
+  model_to_base:
+    translation_m: [-0.034, -0.046, 0.463]
+    rpy_deg: [90.0, 0.0, 90.0]
+  table_height_m: 0.0
+
+planning:
+  speed_m_s: 0.01
+  acceleration_m_s2: 0.05
+  min_waypoint_dt_s: 0.05
+  ik_restarts: 24

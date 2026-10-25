@@ -1,0 +1,40 @@
+# Scan one contiguous patch of the occlusal surface with a serpentine raster.
+# Coordinates are in the MODEL frame (metres), i.e. the frame of the PLY mesh.
+#
+# This demo patch covers one front tooth. A wider raster crossing the midline
+# runs into the same wrist-branch problem as the unclamped arch: the tool is
+# 200 mm long, so a 3 deg orientation change sweeps the flange by ~10 mm and
+# the IK flips branch at the serpentine turns. Use `arch_walk.yaml` for full
+# arch coverage.
+
+name: occlusal_patch_tooth
+pattern: raster
+
+region:
+  mode: bbox
+  # One front tooth on the lower-jaw scan (model frame, metres).
+  min_m: [0.000, 0.020, 0.018]
+  max_m: [0.008, 0.038, 0.026]
+
+# Coverage raster
+spacing_m: 0.003
+row_spacing_m: 0.004
+
+# Tool tip stays this far off the surface along the normal.
+standoff_m: 0.002
+
+# Motion
+speed_m_s: 0.01
+acceleration_m_s2: 0.05
+
+# Lift to this height before the first / after the last contact point.
+approach_clearance_m: 0.02
+
+# Pin the flange orientation. Following the surface normal on this curved patch
+# rotates the tool enough to break IK continuity; a fixed orientation keeps the
+# wrist still and the brush simply meets the tooth at a constant angle.
+fixed_orientation_deg: [180.0, 0.0, 150.0]
+
+# Cartesian densification before IK (smooth ServoJ stream).
+max_translation_step_m: 0.002
+max_rotation_step_deg: 3.0

@@ -1,0 +1,17 @@
+# Example calibration file. Replace these numbers with your own hand-eye /
+# TCP calibration results. Both sections are optional; delete the one you are
+# not providing.
+#
+# Units: metres for *_m keys, millimetres for *_mm keys, degrees for rpy_deg.
+
+# Tool tip frame expressed in the robot's Link6 (flange) frame.
+tcp:
+  xyz_m: [0.0, 0.0, 0.16]
+  rpy_deg: [0.0, 0.0, 0.0]
+
+# Dental model frame expressed in the robot base frame.
+model_to_base:
+  xyz_m: [0.45, 0.0, 0.25]
+  rpy_deg: [90.0, 0.0, 90.0]
+
+note: "example values - replace with the real calibration"
